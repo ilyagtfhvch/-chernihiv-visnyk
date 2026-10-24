@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Чернігівський Вісник — повітряні тривоги та офіційні повідомлення для Чернігова і Чернігівської області.">
+<title>Чернігівський Вісник — оперативна інформація</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23b91c1c'/%3E%3Ctext x='50' y='67' font-size='58' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EВ%3C/text%3E%3C/svg%3E">
+<style>
+:root{color-scheme:dark;--bg:#0c0c0e;--panel:#171719;--line:#303034;--red:#d9272e;--muted:#aaaab1;--green:#36b37e;--yellow:#f0b429}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f7f8;font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}a{color:#ff777c}header{background:#141416;border-bottom:1px solid var(--line);padding:18px max(16px,calc((100% - 1100px)/2));display:flex;align-items:center;gap:13px}.logo{background:var(--red);font-weight:900;font-size:22px;border-radius:10px;width:46px;height:46px;display:grid;place-items:center}h1{font-size:clamp(20px,4vw,28px);margin:0}header p{margin:2px 0 0;color:var(--muted);font-size:13px}.wrap{max-width:1100px;margin:auto;padding:18px 14px 50px}.top{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px;margin-bottom:14px}.status{display:flex;align-items:center;gap:12px}.dot{width:13px;height:13px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px #36b37e20}.dot.red{background:var(--red);box-shadow:0 0 0 5px #d9272e20}.dot.yellow{background:var(--yellow);box-shadow:0 0 0 5px #f0b42920}.big{font-size:clamp(21px,4vw,30px);font-weight:800}.muted{color:var(--muted);font-size:13px}.section-title{font-size:18px;margin:0 0 12px}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:#ddd;font-size:12px}.btn{display:inline-block;padding:10px 13px;border-radius:9px;background:#29292d;border:1px solid #414147;color:white;text-decoration:none;font-weight:650;margin:4px 5px 0 0}.btn.primary{background:var(--red);border-color:var(--red)}.region-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.region{background:#202023;border:1px solid #35353a;border-radius:10px;padding:11px;display:flex;justify-content:space-between;gap:10px}.badge{font-size:12px;font-weight:700;white-space:nowrap}.badge.active{color:#ff777c}.badge.clear{color:#65d6a6}.badge.unknown{color:#f2c15b}.feed-item{padding:12px 0;border-bottom:1px solid var(--line)}.feed-item:last-child{border:0}.feed-item strong{display:block}.feed-item small{color:var(--muted)}.warning{border-left:3px solid var(--yellow);padding:9px 12px;background:#f0b42912;color:#e7d9b6;font-size:13px;border-radius:4px}.error{color:#ff999d}.footer{color:var(--muted);font-size:12px;text-align:center;padding:15px}.status-line{display:flex;justify-content:space-between;gap:10px;align-items:center}.map-placeholder{background:linear-gradient(135deg,#252529,#171719);border:1px dashed #49494f;border-radius:11px;padding:20px;text-align:center}.spinner{display:inline-block;width:11px;height:11px;border:2px solid #666;border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:720px){.top{grid-template-columns:1fr}.region-list{grid-template-columns:1fr}header{padding:13px 14px}}
+</style>
+</head>
+<body>
+<header><div class="logo">В</div><div><h1>Чернігівський Вісник</h1><p>Оперативна інформація · Чернігів і область</p></div></header>
+<main class="wrap">
+<div class="warning">Інформаційний сервіс. Дані можуть надходити із затримкою. Для власної безпеки завжди виконуйте офіційні сповіщення та вказівки місцевої влади.</div>
+<div class="top" style="margin-top:14px">
+<section class="panel"><div class="status"><span id="mainDot" class="dot"></span><div><div class="muted">СТАН ЧЕРНІГІВСЬКОЇ ОБЛАСТІ</div><div id="mainStatus" class="big">Завантаження…</div><div id="mainDetail" class="muted">Очікуємо дані Alerts.in.ua</div></div></div><div style="margin-top:15px"><a class="btn primary" href="https://alerts.in.ua/" target="_blank" rel="noopener">Відкрити офіційну карту</a><a class="btn" href="https://t.me/kpszsu" target="_blank" rel="noopener">Повітряні Сили</a><a class="btn" href="https://t.me/air_alert_ua" target="_blank" rel="noopener">Повітряна тривога</a></div></section>
+<section class="panel"><h2 class="section-title">Стан сервісу</h2><div class="status-line"><span class="muted">API</span><strong id="apiState">Перевірка…</strong></div><div class="status-line" style="margin-top:10px"><span class="muted">Остання успішна відповідь</span><strong id="lastOk">—</strong></div><div class="status-line" style="margin-top:10px"><span class="muted">Оновлення сторінки</span><strong>15 с</strong></div><p id="apiError" class="muted" role="status"></p></section>
+</div>
+<section class="panel"><h2 class="section-title">Чернігівська область: активні повідомлення</h2><p class="muted">Дані показуються лише тоді, коли їх повертає API. Список районів і громад формується з отриманих офіційних записів; відсутність запису не завжди означає відсутність загрози.</p><div id="regions" class="region-list"><div class="muted">Завантаження даних…</div></div></section>
+<section class="panel"><h2 class="section-title">Історія змін на цьому пристрої</h2><p class="muted">Історія локальна для цього браузера і починає накопичуватися після відкриття сайту. Це не офіційний архів.</p><div id="history"><p class="muted">Подій поки немає.</p></div><button class="btn" id="clearHistory">Очистити локальну історію</button></section>
+<section class="panel"><h2 class="section-title">Офіційні джерела</h2><div class="feed-item"><strong><a href="https://alerts.in.ua/" target="_blank" rel="noopener">Alerts.in.ua — карта тривог</a></strong><small>Статуси тривог та інші загрози за доступними даними сервісу.</small></div><div class="feed-item"><strong><a href="https://t.me/kpszsu" target="_blank" rel="noopener">Повітряні Сили ЗС України</a></strong><small>Офіційні повідомлення. Переходьте до первинного допису для контексту.</small></div><div class="feed-item"><strong><a href="https://t.me/air_alert_ua" target="_blank" rel="noopener">Повітряна тривога</a></strong><small>Оперативні сповіщення. Сайт не копіює дописи без окремого дозволу та технічного підключення.</small></div><p class="muted">Ця версія не сканує Telegram автоматично та не відображає курси/координати повітряних цілей. Вона призначена для статусів тривог і посилань на офіційні джерела.</p></section>
+<div class="footer">Чернігівський Вісник · Не є офіційним державним сервісом · Не використовуйте як єдине джерело безпеки</div>
+</main>
+<script>
+const API_URL = "/api/active";
+const POLL_MS = 15000;
+const REGION_RE = /(чернігів|chernihiv)/i;
+const $ = id => document.getElementById(id);
+let lastSignature = "";
+let lastSuccessful = null;
+function fmtDate(d){try{return new Intl.DateTimeFormat("uk-UA",{dateStyle:"short",timeStyle:"medium"}).format(new Date(d));}catch{return String(d||"—")}}
+function getArray(data){
+  if(Array.isArray(data)) return data;
+  if(data && Array.isArray(data.alerts)) return data.alerts;
+  if(data && Array.isArray(data.active_alerts)) return data.active_alerts;
+  if(data && Array.isArray(data.data)) return data.data;
+  return [];
+}
+function titleOf(x){return x.location_title || x.location_title_uk || x.location || x.name || "Невідома територія"}
+function activeOf(x){return !x.finished_at && (x.started_at || x.alert_type || x.alert_level || x.threats || x.status==="active")}
+function addHistory(message){
+  let h=[]; try{h=JSON.parse(localStorage.getItem("cv-history")||"[]")}catch{}
+  h.unshift({time:new Date().toISOString(),message}); h=h.slice(0,30);
+  try{localStorage.setItem("cv-history",JSON.stringify(h))}catch{}
+  renderHistory();
+}
+function renderHistory(){
+ let h=[];try{h=JSON.parse(localStorage.getItem("cv-history")||"[]")}catch{}
+ $("history").innerHTML=h.length?h.map(x=>`<div class="feed-item"><strong>${escapeHtml(x.message)}</strong><small>${fmtDate(x.time)}</small></div>`).join(""):'<p class="muted">Подій поки немає.</p>';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(data, serverTime){
+ const all=getArray(data);
+ const cn=all.filter(x=>REGION_RE.test([titleOf(x),x.location_oblast,x.location_raion].filter(Boolean).join(" ")));
+ const active=cn.filter(activeOf);
+ const sig=active.map(x=>titleOf(x)+":"+(x.alert_level||"active")).sort().join("|");
+ $("mainDot").className="dot"+(active.length?" red":"");
+ $("mainStatus").textContent=active.length?"Є активні повідомлення":"Активних записів немає";
+ $("mainDetail").textContent=active.length?`Отримано активних записів: ${active.length}`:"API не повернув активних записів для області";
+ $("regions").innerHTML=cn.length?cn.map(x=>`<div class="region"><span>${escapeHtml(titleOf(x))}</span><span class="badge ${activeOf(x)?"active":"clear"}">${activeOf(x)?"ТРИВОГА":"Немає активного запису"}</span></div>`).join(""):'<div class="muted">У відповіді API не знайдено записів із назвою Чернігівської області. Перевірте офіційну карту; структура API може вимагати додаткового довідника регіонів.</div>';
+ if(lastSignature!=="" && sig!==lastSignature) addHistory(active.length?`Зміна стану: активні записи — ${active.length}`:"Зміна стану: активних записів не повернуто");
+ lastSignature=sig;
+ $("apiState").textContent="Працює"; $("apiState").style.color="var(--green)";
+ lastSuccessful=serverTime||new Date().toISOString(); $("lastOk").textContent=fmtDate(lastSuccessful); $("apiError").textContent="";
+}
+async function poll(){
+ try{
+  const r=await fetch(API_URL,{cache:"no-store"});
+  const body=await r.json();
+  if(!r.ok) throw new Error(body.error||("HTTP "+r.status));
+  if(body.error) throw new Error(body.error);
+  render(body.data??body, body.fetchedAt);
+ }catch(e){
+  $("apiState").textContent="Недоступний";$("apiState").style.color="var(--yellow)";
+  $("apiError").textContent="Не вдалося оновити дані: "+e.message+". Перевірте API-токен і налаштування сервера.";
+  $("mainDetail").textContent=lastSuccessful?"Показані дані можуть бути застарілими. Останнє успішне оновлення: "+fmtDate(lastSuccessful):"Немає підтверджених даних. Відкрийте офіційну карту.";
+ }
+}
+$("clearHistory").addEventListener("click",()=>{localStorage.removeItem("cv-history");renderHistory()});
+renderHistory();poll();setInterval(poll,POLL_MS);
+</script>
+</body></html>
